@@ -4,6 +4,7 @@ import { useTheme } from "styled-components";
 
 import { BackButton } from "../../components/BackButton";
 import { Button } from "../../components/Button";
+import { Calendar } from "../../components/Calendar";
 
 import ArrowSvg from "../../assets/arrow.svg";
 
@@ -57,10 +58,12 @@ export function Schedule() {
       </Header>
 
       <Content>
-        <Footer>
-          <Button title="Confirmar" />
-        </Footer>
+        <Calendar />
       </Content>
+
+      <Footer>
+        <Button title="Confirmar" />
+      </Footer>
     </Container>
   );
 }
