@@ -8,11 +8,13 @@ import { ConfirmButton } from "../../components/ConfirmButton";
 import LogoSvg from "../../assets/logo_background_gray.svg";
 import DoneSvg from "../../assets/done.svg";
 
+import { NavigationProps } from "../../types/NavigationProps";
+
 import { Container, Content, Title, Message, Footer } from "./styles";
 
 export function SchedulingComplete() {
   const { width } = useWindowDimensions();
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
 
   function handleOkClick() {
     navigation.navigate("Home");

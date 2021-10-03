@@ -13,9 +13,11 @@ import {
   generateInterval,
   MarkedDateProps,
 } from "../../components/Calendar";
-
 import ArrowSvg from "../../assets/arrow.svg";
+
 import { CarDTO } from "../../dtos/CarDTO";
+
+import { NavigationProps } from "../../types/NavigationProps";
 
 import {
   Container,
@@ -51,7 +53,7 @@ export function Schedule() {
   );
 
   const theme = useTheme();
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
   const route = useRoute();
   const { car } = route.params as ScheduleParams;
 

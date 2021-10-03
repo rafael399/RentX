@@ -11,11 +11,12 @@ import { Load } from "../../components/Load";
 
 import { Container, Header, TotalCars, CarList } from "./styles";
 import { CarDTO } from "../../dtos/CarDTO";
+import { NavigationProps } from "../../types/NavigationProps";
 
 export function Home() {
-  const navigation = useNavigation();
   const [cars, setCars] = useState<CarDTO[]>([] as CarDTO[]);
   const [loading, setLoading] = useState(true);
+  const navigation = useNavigation<NavigationProps>();
 
   useEffect(() => {
     async function fetchCars() {

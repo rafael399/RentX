@@ -8,6 +8,7 @@ import { Button } from "../../components/Button";
 
 import { getAccessoryIcon } from "../../utils/getAccessoryIcon";
 import { CarDTO } from "../../dtos/CarDTO";
+import { NavigationProps } from "../../types/NavigationProps";
 
 import {
   Container,
@@ -31,7 +32,7 @@ interface CarDetailsParams {
 }
 
 export function CarDetails() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
   const route = useRoute();
   const { car } = route.params as CarDetailsParams;
 
