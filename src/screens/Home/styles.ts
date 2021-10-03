@@ -1,6 +1,7 @@
 import styled from "styled-components/native";
 import { FlatList } from "react-native-gesture-handler";
 import { RFValue } from "react-native-responsive-fontsize";
+import { CarDTO } from "../../dtos/CarDTO";
 
 export const Container = styled.View`
   flex: 1;
