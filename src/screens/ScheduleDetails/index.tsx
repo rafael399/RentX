@@ -56,9 +56,11 @@ interface RentalPeriodProps {
 }
 
 export function ScheduleDetails() {
+  const [loading, setLoading] = useState(false);
   const [rentalPeriod, setRentalPeriod] = useState<RentalPeriodProps>(
     {} as RentalPeriodProps
   );
+
   const theme = useTheme();
   const navigation = useNavigation<NavigationProps>();
   const route = useRoute();
@@ -66,6 +68,8 @@ export function ScheduleDetails() {
 
   async function handleRentNow() {
     try {
+      setLoading(true);
+
       const response: { data: ScheduleByCarDTO } = await api.get(
         `/schedules_bycars/${car.id}`
       );
@@ -81,6 +85,16 @@ export function ScheduleDetails() {
 
       const unavailable_dates = [...response.data.unavailable_dates, ...dates];
 
+      await api.post("/schedules_byuser", {
+        user_id: 1,
+        car,
+        startDate: format(getPlatformDate(new Date(dates[0])), "dd/MM/yyy"),
+        endDate: format(
+          getPlatformDate(new Date(dates[dates.length - 1])),
+          "dd/MM/yyy"
+        ),
+      });
+
       await api.put(`/schedules_bycars/${car.id}`, {
         id: car.id,
         unavailable_dates,
@@ -89,6 +103,8 @@ export function ScheduleDetails() {
       navigation.navigate("SchedulingComplete");
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -185,6 +201,7 @@ export function ScheduleDetails() {
           title="Alugar agora"
           color={theme.colors.success}
           onPress={handleRentNow}
+          loading={loading}
         />
       </Footer>
     </Container>

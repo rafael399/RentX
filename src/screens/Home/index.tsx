@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
+import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "styled-components/native";
 
 import api from "../../service/api";
 
@@ -9,14 +11,22 @@ import Logo from "../../assets/logo.svg";
 import { CarCard } from "../../components/CarCard";
 import { Load } from "../../components/Load";
 
-import { Container, Header, TotalCars, CarList } from "./styles";
 import { CarDTO } from "../../dtos/CarDTO";
 import { NavigationProps } from "../../types/NavigationProps";
+
+import {
+  Container,
+  Header,
+  TotalCars,
+  CarList,
+  MyRentalsButton,
+} from "./styles";
 
 export function Home() {
   const [cars, setCars] = useState<CarDTO[]>([] as CarDTO[]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation<NavigationProps>();
+  const theme = useTheme();
 
   useEffect(() => {
     async function fetchCars() {
@@ -35,6 +45,10 @@ export function Home() {
 
   function handleCarDetails(car: CarDTO) {
     navigation.navigate("CarDetails", { car });
+  }
+
+  function handleMyRentalsButtonClick() {
+    navigation.navigate("MyRentals");
   }
 
   return (
@@ -61,6 +75,14 @@ export function Home() {
           )}
         ></CarList>
       )}
+
+      <MyRentalsButton onPress={handleMyRentalsButtonClick}>
+        <Ionicons
+          name="ios-car-sport"
+          size={RFValue(32)}
+          color={theme.colors.shape}
+        />
+      </MyRentalsButton>
     </Container>
   );
 }
