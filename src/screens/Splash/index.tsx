@@ -1,44 +1,88 @@
-import React from "react";
-import { StyleSheet } from "react-native";
+import React, { useEffect } from "react";
+import { useNavigation } from "@react-navigation/core";
+import { RFPercentage } from "react-native-responsive-fontsize";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
+  withTiming,
+  interpolate,
+  Extrapolate,
+  runOnJS,
 } from "react-native-reanimated";
 
-import { Button } from "../../components/Button";
+import BrandSvg from "../../assets/brand.svg";
+import LogoSvg from "../../assets/logo.svg";
+
+import { NavigationProps } from "../../types/NavigationProps";
 
 import { Container } from "./styles";
 
 export function Splash() {
-  const animation = useSharedValue(0);
+  const splashAnimation = useSharedValue(0);
+  const navigation = useNavigation<NavigationProps>();
 
-  const animatedStyles = useAnimatedStyle(() => {
+  const brandStyle = useAnimatedStyle(() => {
     return {
+      opacity: interpolate(
+        splashAnimation.value,
+        [0, 50], // Steps da animação (inicia em 0 e finaliza em 50)
+        [1, 0] // Opacidade em cada step
+      ),
       transform: [
         {
-          translateX: animation.value,
+          translateX: interpolate(
+            splashAnimation.value,
+            [0, 50],
+            [0, -50],
+            Extrapolate.CLAMP // Forçar animação a respeitar os limites passados
+          ),
         },
       ],
     };
   });
 
-  function handleButtonClick() {
-    animation.value = Math.random() * 100;
+  const logoStyle = useAnimatedStyle(() => {
+    return {
+      opacity: interpolate(splashAnimation.value, [0, 25, 50], [0, 0.3, 1]),
+      transform: [
+        {
+          translateX: interpolate(
+            splashAnimation.value,
+            [0, 50],
+            [-50, 0],
+            Extrapolate.CLAMP
+          ),
+        },
+      ],
+    };
+  });
+
+  function startApp() {
+    navigation.navigate("Home");
   }
+
+  useEffect(() => {
+    splashAnimation.value = withTiming(
+      50,
+      {
+        duration: 2000,
+      },
+      () => {
+        "worklet";
+        runOnJS(startApp)();
+      }
+    );
+  }, []);
 
   return (
     <Container>
-      <Animated.View style={[styles.box, animatedStyles]} />
+      <Animated.View style={[brandStyle, { position: "absolute" }]}>
+        <BrandSvg width={RFPercentage(17.5)} height={RFPercentage(7.5)} />
+      </Animated.View>
 
-      <Button title="Mover" onPress={handleButtonClick} />
+      <Animated.View style={[logoStyle, { position: "absolute" }]}>
+        <LogoSvg width={180} height={20} />
+      </Animated.View>
     </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  box: {
-    width: 100,
-    height: 100,
-    backgroundColor: "red",
-  },
-});
