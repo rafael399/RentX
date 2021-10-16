@@ -5,7 +5,7 @@ import { useTheme } from "styled-components/native";
 import { AntDesign } from "@expo/vector-icons";
 import api from "../../service/api";
 
-import { Load } from "../../components/Load";
+import { LoadAnimation } from "../../components/LoadAnimation";
 import { CarCard } from "../../components/CarCard";
 import { BackButton } from "../../components/BackButton";
 
@@ -78,7 +78,7 @@ export function MyRentals() {
       </Header>
 
       {loading ? (
-        <Load />
+        <LoadAnimation />
       ) : (
         <Content>
           <Appointments>

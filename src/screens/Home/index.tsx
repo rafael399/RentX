@@ -16,7 +16,7 @@ import api from "../../service/api";
 
 import Logo from "../../assets/logo.svg";
 import { CarCard } from "../../components/CarCard";
-import { Load } from "../../components/Load";
+import { LoadAnimation } from "../../components/LoadAnimation";
 
 import { CarDTO } from "../../dtos/CarDTO";
 import { NavigationProps } from "../../types/NavigationProps";
@@ -101,7 +101,7 @@ export function Home() {
       </Header>
 
       {loading ? (
-        <Load />
+        <LoadAnimation />
       ) : (
         <CarList
           data={cars}
@@ -112,25 +112,27 @@ export function Home() {
         ></CarList>
       )}
 
-      <PanGestureHandler onGestureEvent={onGestureEvent}>
-        <Animated.View
-          style={[styles.myRentalsButtonView, myRentalsButtonAnimatedStyle]}
-        >
-          <ButtonAnimated
-            onPress={handleMyRentalsButtonClick}
-            style={[
-              styles.myRentalsButton,
-              { backgroundColor: theme.colors.main },
-            ]}
+      {!loading && (
+        <PanGestureHandler onGestureEvent={onGestureEvent}>
+          <Animated.View
+            style={[styles.myRentalsButtonView, myRentalsButtonAnimatedStyle]}
           >
-            <Ionicons
-              name="ios-car-sport"
-              size={RFValue(32)}
-              color={theme.colors.shape}
-            />
-          </ButtonAnimated>
-        </Animated.View>
-      </PanGestureHandler>
+            <ButtonAnimated
+              onPress={handleMyRentalsButtonClick}
+              style={[
+                styles.myRentalsButton,
+                { backgroundColor: theme.colors.main },
+              ]}
+            >
+              <Ionicons
+                name="ios-car-sport"
+                size={RFValue(32)}
+                color={theme.colors.shape}
+              />
+            </ButtonAnimated>
+          </Animated.View>
+        </PanGestureHandler>
+      )}
     </Container>
   );
 }
