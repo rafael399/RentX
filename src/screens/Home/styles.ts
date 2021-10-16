@@ -33,18 +33,3 @@ export const CarList = styled(FlatList).attrs({
   },
   showsVerticalScrollIndicator: false,
 })``;
-
-export const MyRentalsButton = styled(RectButton)`
-  width: ${RFValue(60)}px;
-  height: ${RFValue(60)}px;
-  border-radius: ${RFValue(30)}px;
-
-  justify-content: center;
-  align-items: center;
-
-  background-color: ${({ theme }) => theme.colors.main};
-
-  position: absolute;
-  bottom: ${RFValue(13)}px;
-  right: ${RFValue(22)}px;
-`;

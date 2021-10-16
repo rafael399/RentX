@@ -20,18 +20,6 @@ export const Header = styled.View`
   margin-left: ${RFValue(24)}px;
 `;
 
-export const CarImages = styled.View`
-  margin-top: ${getStatusBarHeight() + RFValue(32)}px;
-`;
-
-export const Content = styled.ScrollView.attrs({
-  contentContainerStyle: {
-    padding: RFValue(24),
-    alignItems: "center",
-  },
-  showsVerticalScrolIndicator: false,
-})``;
-
 export const Details = styled.View`
   width: 100%;
 
