@@ -4,6 +4,7 @@ import { useTheme } from "styled-components";
 
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
+import { PasswordInput } from "../../components/PasswordInput";
 
 import { Container, Header, Title, SubTitle, Form, Footer } from "./styles";
 
@@ -34,7 +35,12 @@ export function SignIn() {
           autoCorrect={false}
           autoCapitalize="none"
         />
-        <Input iconName="lock" placeholder="Senha" />
+
+        <PasswordInput
+          iconName="lock"
+          placeholder="Senha"
+          style={{ marginTop: 8 }}
+        />
       </Form>
 
       <Footer>
