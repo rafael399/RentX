@@ -8,6 +8,7 @@ interface ContainerProps {
 
 interface TitleProps {
   light: boolean;
+  enabled: boolean;
 }
 
 export const Container = styled(RectButton)<ContainerProps>`
@@ -22,6 +23,10 @@ export const Container = styled(RectButton)<ContainerProps>`
 export const Title = styled.Text<TitleProps>`
   font-family: ${({ theme }) => theme.fonts.primary_500};
   font-size: ${RFValue(15)}px;
-  color: ${({ theme, light }) =>
-    light ? theme.colors.header : theme.colors.shape};
+  color: ${({ theme, light, enabled }) =>
+    light
+      ? theme.colors.header
+      : enabled
+      ? theme.colors.background_secondary
+      : theme.colors.shape};
 `;

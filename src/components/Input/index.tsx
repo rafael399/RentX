@@ -10,7 +10,7 @@ interface InputProps extends TextInputProps {
   value?: string;
 }
 
-export function Input({ iconName, value, ...rest }: InputProps) {
+export function Input({ iconName, style = {}, value, ...rest }: InputProps) {
   const [isFilled, setIsFilled] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -26,7 +26,7 @@ export function Input({ iconName, value, ...rest }: InputProps) {
   }, [value]);
 
   return (
-    <Container>
+    <Container style={style}>
       <IconContainer isFocused={isFocused}>
         <Feather
           name={iconName}

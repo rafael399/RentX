@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   StatusBar,
   KeyboardAvoidingView,
@@ -8,6 +9,8 @@ import {
 } from "react-native";
 import { useTheme } from "styled-components";
 import * as Yup from "yup";
+
+import { NavigationProps } from "../../types/NavigationProps";
 
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
@@ -20,6 +23,7 @@ export function SignIn() {
   const [password, setPassword] = useState("");
 
   const theme = useTheme();
+  const navigation = useNavigation<NavigationProps>();
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -39,6 +43,10 @@ export function SignIn() {
       }
     }
   }, [schema, email, password]);
+
+  const handleCreateAccount = useCallback(() => {
+    navigation.navigate("FirstStep");
+  }, []);
 
   return (
     <KeyboardAvoidingView behavior="position" enabled>
@@ -89,8 +97,8 @@ export function SignIn() {
               title="Criar conta gratuita"
               color={theme.colors.background_secondary}
               light
-              onPress={() => {}}
-              enabled={false}
+              onPress={handleCreateAccount}
+              // enabled={false}
               loading={false}
             />
           </Footer>

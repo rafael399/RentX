@@ -32,7 +32,9 @@ export function Button({
       {loading ? (
         <ActivityIndicator color={theme.colors.shape} />
       ) : (
-        <Title light={light}>{title}</Title>
+        <Title light={light} enabled={enabled}>
+          {title}
+        </Title>
       )}
     </Container>
   );
